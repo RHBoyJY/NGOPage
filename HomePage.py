@@ -122,7 +122,6 @@ option = st.sidebar.selectbox(
     '你喜歡哪種動物？',
     ['狗', '貓', '鸚鵡', '天竺鼠'])
 st.text(f'你的答案：{option}')
-# st.sidebar.text(f'你的答案：{option}')
 
 st.write("嘗試創建**左右欄位**：")
 left_column, right_column = st.columns(2)
