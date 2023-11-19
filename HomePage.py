@@ -6,7 +6,10 @@ import numpy as np
 import pandas as pd
 import re
 from io import StringIO, BytesIO
-
+st.set_page_config(
+    page_title="Excel tool box",
+    page_icon="👋",
+)
 def find_header_location(df):
     # 尋找標題所在的位置，這裡簡單示範在每行每列中找到第一個不為空的單元格作為標題位置
     for index, row in df.iterrows():
@@ -48,89 +51,17 @@ def extract_bullet_points(text):
 
     return points
 
-st.title('我的第一個應用程式')
+st.title('這是測試用的網頁')
 
-st.write("嘗試創建**checkbox**：")
-if st.checkbox('資料比對'):
-    uploaded_file1 = st.file_uploader("請上傳Excel檔案一")
-    if uploaded_file1 is not None:
-        # To read file as bytes:
-        bytes_data = uploaded_file1.getvalue()
-        result_byte_data = process_excel_data(bytes_data)
-        st.download_button(
-            label="Download data as Excel",
-            data=result_byte_data,
-            file_name='large_df.xlsx',
-            mime='Excel/xlsx',
-        )
-
-    uploaded_file2 = st.file_uploader("請上傳Excel檔案二")
-    if uploaded_file2 is not None:
-        # To read file as bytes:
-        bytes_data = uploaded_file2.getvalue()
-        result_byte_data = process_excel_data(bytes_data)
-        st.download_button(
-            label="Download data as Excel",
-            data=result_byte_data,
-            file_name='large_df.xlsx',
-            mime='Excel/xlsx',
-        )
-
-if st.checkbox('資料關鍵資訊整理'):
-    uploaded_file = st.file_uploader("請上傳Excel檔案一")
-    if uploaded_file is not None:
-        # To read file as bytes:
-        bytes_data = uploaded_file.getvalue()
-        result_byte_data = process_excel_data(bytes_data)
-        st.download_button(
-            label="Download data as Excel",
-            data=result_byte_data,
-            file_name='large_df.xlsx',
-            mime='Excel/xlsx',
-        )
-
-st.write("嘗試創建**Button**：")
-if st.button('按一下!'):
-    # st.text("乖!真乖!!!")
-    st.balloons()
-if st.button('按一下下雪!'):
-    st.snow()
-
-st.write("嘗試創建**表格**：")
-
-df = pd.DataFrame({
-    'first column': [1, 2, 3, 4],
-    'second column': [10, 20, 30, 40]
-})
-df
-
-st.write("嘗試創建**Chart**：")
-chart_data = pd.DataFrame(
-    np.random.randn(20, 3),
-    columns=['a', 'b', 'c'])
-st.line_chart(chart_data)
-
-st.write("嘗試創建**MAP**：")
-if st.checkbox('顯示地圖圖表'):
-    map_data = pd.DataFrame(
-        np.random.randn(50, 2) / [2, 2] + [23.58, 120.58],
-        columns=['lat', 'lon'])
-    st.map(map_data)
-
-st.write("嘗試創建**下拉選單**：")
-option = st.selectbox(
-    '你喜歡哪種動物？',
-    ['狗', '貓', '鸚鵡', '天竺鼠'])
-st.text(f'你的答案：{option}')
-
-st.write("嘗試創建**左右欄位**：")
-left_column, right_column = st.columns(2)
-left_column.write("這是左邊欄位。")
-right_column.write("這是右邊欄位。")
-
-st.write("嘗試創建**隱藏選項**：")
-expander = st.expander("點擊來展開...")
-expander.write(" 方案1。")
-expander.write(" 方案2。")
-
+st.markdown(
+        """
+        This is an open-source program for NGO/NPO project 
+        **👈 Select a function from the sidebar** to process the Excel by Click the mouse!
+        ### Function Explanation for understanding
+        - Function 1: ExcelCompare - Compare the second excel columns with the first excel columns, 
+                         to list the difference cloumns number and items. 
+                         YOu can also download excel file to have the excel format for following processing.
+        - Function 2: KeywordFinding - under development. 
+    """
+)
 
