@@ -118,7 +118,7 @@ if st.checkbox('顯示地圖圖表'):
     st.map(map_data)
 
 st.write("嘗試創建**下拉選單**：")
-option = st.sidebar.selectbox(
+option = st.selectbox(
     '你喜歡哪種動物？',
     ['狗', '貓', '鸚鵡', '天竺鼠'])
 st.text(f'你的答案：{option}')
