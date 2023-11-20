@@ -103,7 +103,24 @@ def process_excel_data(byte_data):
     df['Extracted_Key_Points'] = extracted_key_points
 
     # 在這裡，你可以繼續進行其他操作，例如合併兩個檔案，執行相應的分析等
+    # 針對每個要點進行擷取，並彙整成一個 list
+    last_Keycolumn = df['Extracted_Key_Points']
+    all_key_points = []
+    for data in last_Keycolumn:
+        all_key_points.extend(data))
 
+    # 對 list 進行排序並去除重複的要點
+    sorted_unique_key_points = sorted(set(all_key_points))
+
+    # 在這裡，你可以進一步處理新的 list 或進行其他操作
+
+    # 創建包含要點的新 DataFrame
+    result_df = pd.DataFrame({'Sorted_Unique_Key_Points': sorted_unique_key_points})
+
+    # 將結果保存為新的 Excel 檔案
+    result_excel = BytesIO()
+    result_df.to_excel(result_excel, index=False, engine='openpyxl')
+    result_excel_data=result_excel.getvalue()
     # 範例：將組合後的標題寫入新的 Excel 檔案
     
     # 在這裡，你可以繼續進行其他操作，例如將兩個檔案的數據合併等
@@ -118,7 +135,7 @@ def process_excel_data(byte_data):
     output_excel_data = output_excel.getvalue()
 
     # 處理完成後返回處理後的數據
-    return output_excel_data
+    return output_excel_data,result_excel_data
 
 
 st.title('進行Excel抬頭列項目比對')
@@ -128,10 +145,16 @@ if st.checkbox('找出要點'):
     if uploaded_file is not None:
         # To read file as bytes:        
         bytes_data = uploaded_file.getvalue()
-        result_byte_data = process_excel_data(bytes_data)
+        result_byte_data1, result_byte_data2= process_excel_data(bytes_data)
         st.download_button(
             label="Download Result as Excel",
-            data=result_byte_data,
+            data=result_byte_data1,
+            file_name='CombinedExcel.xlsx',
+            mime='Excel/xlsx',
+        )       
+        st.download_button(
+            label="Download Result as Excel",
+            data=result_byte_data2,
             file_name='CombinedExcel.xlsx',
             mime='Excel/xlsx',
         )
