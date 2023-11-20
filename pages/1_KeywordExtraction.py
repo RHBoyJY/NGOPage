@@ -88,21 +88,18 @@ def process_excel_data(byte_data):
 
 st.title('進行Excel抬頭列項目比對')
 
-if st.checkbox('資料比對'):
-    uploaded_file1 = st.file_uploader("請上傳Excel檔案一")
-    if uploaded_file1 is not None:
-        # To read file as bytes:
-        uploaded_file2 = st.file_uploader("請上傳Excel檔案二")
-        if uploaded_file2 is not None:
-            bytes_data1 = uploaded_file1.getvalue()
-            bytes_data2 = uploaded_file2.getvalue()
-            result_byte_data = process_excel_data(bytes_data1,bytes_data2)
-            st.download_button(
-                label="Download data as Excel",
-                data=result_byte_data,
-                file_name='CombinedExcel.xlsx',
-                mime='Excel/xlsx',
-            )
+if st.checkbox('找出要點'):
+    uploaded_file = st.file_uploader("請上傳Excel檔案")
+    if uploaded_file is not None:
+        # To read file as bytes:        
+        bytes_data = uploaded_file.getvalue()
+        result_byte_data = process_excel_data(bytes_data)
+        st.download_button(
+            label="Download data as Excel",
+            data=result_byte_data,
+            file_name='CombinedExcel.xlsx',
+            mime='Excel/xlsx',
+        )
 
 
 
