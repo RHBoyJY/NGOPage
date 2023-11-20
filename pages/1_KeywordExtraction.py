@@ -107,7 +107,7 @@ def process_excel_data(byte_data):
     last_Keycolumn = df['Extracted_Key_Points']
     all_key_points = []
     for data in last_Keycolumn:
-        all_key_points.extend(data))
+        all_key_points.extend(data)
 
     # 對 list 進行排序並去除重複的要點
     sorted_unique_key_points = sorted(set(all_key_points))
