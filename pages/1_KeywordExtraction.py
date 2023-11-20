@@ -15,6 +15,17 @@ def extract_chinese_from_pattern(input_string):
          return match.group(0)
     else:
         return input_string
+
+def extract_last_letter_portion(input_string):
+    # 使用正規表達式擷取最後的字母部分
+    pattern = r'[a-zA-Z\s]+$'
+    match = re.search(pattern, input_string)
+
+    # 如果符合格式，返回最後的字母部分；否則返回空字串
+    if match:
+        return match.group(0)
+    else:
+        return input_string
         
 def extract_key_points(data):
     # 使用正規表達式擷取要點
@@ -29,7 +40,7 @@ def extract_key_points(data):
     for key_point in key_points:
         last_char = key_point[-1]
         if last_char.isalpha() and last_char.isascii():  # 最後一個字是英文
-            processed_key_point = re.sub(r'^[\u4e00-\u9fa5\s]+', '', key_point)
+            processed_key_point = extract_last_letter_portion(key_point)
         else:  # 最後一個字是中文
             processed_key_point = extract_chinese_from_pattern(key_point)
             # processed_key_point = re.sub(r'^[\u4e00-\u9fa5\s]+', '', processed_key_point, count=1)
