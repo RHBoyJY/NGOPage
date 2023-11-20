@@ -138,7 +138,7 @@ def process_excel_data(byte_data):
     return output_excel_data,result_excel_data
 
 
-st.title('進行Excel抬頭列項目比對')
+st.title('進行Excel要點分析與整理')
 
 if st.checkbox('找出要點'):
     uploaded_file = st.file_uploader("請上傳Excel檔案")
