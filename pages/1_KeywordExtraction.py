@@ -149,13 +149,13 @@ if st.checkbox('找出要點'):
         st.download_button(
             label="Download Full Result as Excel",
             data=result_byte_data1,
-            file_name='CombinedExcel.xlsx',
+            file_name='Full_Result.xlsx',
             mime='Excel/xlsx',
         )       
         st.download_button(
             label="Download Key items as Excel",
             data=result_byte_data2,
-            file_name='CombinedExcel.xlsx',
+            file_name='Key_items_List.xlsx',
             mime='Excel/xlsx',
         )
 
