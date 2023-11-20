@@ -6,7 +6,17 @@ import numpy as np
 import pandas as pd
 import re
 from io import BytesIO
+def extract_chinese_from_pattern(input_string):
+    # 使用正規表達式擷取中文+空白+中文的格式
+    pattern = r'([\u4e00-\u9fa5]+)\s+[\u4e00-\u9fa5]+$'
+    match = re.search(pattern, input_string)
 
+    # 如果符合格式，返回最後的中文部分；否則返回原字串
+    if match:
+        return match.group(1)
+    else:
+        return input_string
+        
 def extract_key_points(data):
     # 使用正規表達式擷取要點
     pattern = r'(?<!\s)[\u4e00-\u9fa5a-zA-Z\s]+[:：]'
@@ -22,7 +32,7 @@ def extract_key_points(data):
         if last_char.isalpha() and last_char.isascii():  # 最後一個字是英文
             processed_key_point = re.sub(r'^[\u4e00-\u9fa5\s]+', '', key_point)
         else:  # 最後一個字是中文
-            processed_key_point = re.sub(r'^[a-zA-Z\s]+', '', key_point)
+            processed_key_point = extract_chinese_from_pattern(key_point)
             # processed_key_point = re.sub(r'^[\u4e00-\u9fa5\s]+', '', processed_key_point, count=1)
         processed_key_points.append(processed_key_point)
 
