@@ -15,7 +15,17 @@ def extract_key_points(data):
     # 去除符號，保留純文字要點
     key_points = [re.sub(r'[:：]', '', match) for match in key_points_match]
 
-    return key_points
+    # 進一步處理要點，根據最後一個字是中文還是英文，去除前面的中文或英文及空白
+    processed_key_points = []
+    for key_point in key_points:
+        last_char = key_point[-1]
+        if last_char.isalpha() and last_char.isascii():  # 最後一個字是英文
+            processed_key_point = re.sub(r'^[\u4e00-\u9fa5\s]+', '', key_point)
+        else:  # 最後一個字是中文
+            processed_key_point = re.sub(r'^[a-zA-Z\s]+', '', key_point)
+        processed_key_points.append(processed_key_point)
+
+    return processed_key_points
 
 
 def clean_columns(columns):
