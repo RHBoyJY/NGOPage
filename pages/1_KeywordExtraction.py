@@ -147,13 +147,13 @@ if st.checkbox('找出要點'):
         bytes_data = uploaded_file.getvalue()
         result_byte_data1, result_byte_data2= process_excel_data(bytes_data)
         st.download_button(
-            label="Download Result as Excel",
+            label="Download All Result as Excel",
             data=result_byte_data1,
             file_name='CombinedExcel.xlsx',
             mime='Excel/xlsx',
         )       
         st.download_button(
-            label="Download Result as Excel",
+            label="Download Key items as Excel",
             data=result_byte_data2,
             file_name='CombinedExcel.xlsx',
             mime='Excel/xlsx',
