@@ -23,7 +23,7 @@ def extract_key_points(data):
             processed_key_point = re.sub(r'^[\u4e00-\u9fa5\s]+', '', key_point)
         else:  # 最後一個字是中文
             processed_key_point = re.sub(r'^[a-zA-Z\s]+', '', key_point)
-            #processed_key_point = re.sub(r'^[\u4e00-\u9fa5\s]+', '', processed_key_point, count=1)
+            # processed_key_point = re.sub(r'^[\u4e00-\u9fa5\s]+', '', processed_key_point, count=1)
         processed_key_points.append(processed_key_point)
 
     return processed_key_points
