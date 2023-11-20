@@ -60,8 +60,8 @@ st.markdown(
         ### Function Explanation for understanding
         - Function 1: ExcelCompare - Compare the second excel columns with the first excel columns, 
                          to list the difference cloumns number and items. 
-                         YOu can also download excel file to have the excel format for following processing.
-        - Function 2: KeywordFinding - under development. 
+                         You can also download excel file to have the excel format for following processing.
+        - Function 2: KeywordFinding - 進行Excel最後一欄的要點分析與整理. 
     """
 )
 
