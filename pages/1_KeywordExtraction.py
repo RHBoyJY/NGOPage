@@ -40,8 +40,12 @@ def extract_key_points(data):
     for key_point in key_points:
         last_char = key_point[-1]
         if last_char.isalpha() and last_char.isascii():  # 最後一個字是英文
+            if key_point == "Glutamine補助 P":
+                print("最後一個字是英文)
             processed_key_point = extract_last_letter_portion(key_point)
         else:  # 最後一個字是中文
+            if key_point == "Glutamine補助 P":
+                print("最後一個字是中文)
             processed_key_point = extract_chinese_from_pattern(key_point)
             # processed_key_point = re.sub(r'^[\u4e00-\u9fa5\s]+', '', processed_key_point, count=1)
         processed_key_points.append(processed_key_point)
