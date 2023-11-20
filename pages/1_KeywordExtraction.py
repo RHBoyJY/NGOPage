@@ -9,7 +9,7 @@ from io import BytesIO
 
 def extract_key_points(data):
     # 使用正規表達式擷取要點
-    pattern = r'[\u4e00-\u9fa5a-zA-Z\s]+[:：]'
+    pattern = r'(?<!\s)[\u4e00-\u9fa5a-zA-Z\s]+[:：]'
     key_points_match = re.findall(pattern, data)
 
     # 去除符號，保留純文字要點
@@ -95,11 +95,9 @@ if st.checkbox('找出要點'):
         bytes_data = uploaded_file.getvalue()
         result_byte_data = process_excel_data(bytes_data)
         st.download_button(
-            label="Download data as Excel",
+            label="Download Result as Excel",
             data=result_byte_data,
             file_name='CombinedExcel.xlsx',
             mime='Excel/xlsx',
         )
-
-
 
