@@ -8,12 +8,11 @@ import re
 from io import BytesIO
 def extract_chinese_from_pattern(input_string):
     # 使用正規表達式擷取中文+空白+中文的格式
-    pattern = r'([\u4e00-\u9fa5]+)\s+[\u4e00-\u9fa5]+$'
+    pattern = r'[\u4e00-\u9fa5]+[^ \t\n\r\f\v]+$'
     match = re.search(pattern, input_string)
-
     # 如果符合格式，返回最後的中文部分；否則返回原字串
     if match:
-        return match.group(1)
+         return match.group(0)
     else:
         return input_string
         
