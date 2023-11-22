@@ -51,17 +51,16 @@ def extract_bullet_points(text):
 
     return points
 
-st.title('這是測試用的網頁')
+st.title('NGO/NPO 專案使用首頁')
 
 st.markdown(
         """
-        This is an open-source program for NGO/NPO project 
+        This is an Web tool for NGO/NPO project \n
         **👈 Select a function from the sidebar** to process the Excel by Click the mouse!
-        ### Function Explanation for understanding
-        - Function 1: ExcelCompare - Compare the second excel columns with the first excel columns, 
-                         to list the difference cloumns number and items. 
-                         You can also download excel file to have the excel format for following processing.
-        - Function 2: KeywordFinding - 進行Excel最後一欄的要點分析與整理. 
+        ### Excel簡易工具簡介
+        - 工具 1: ExcelCompare -  依序放入第一與第二個檔案，工具會將第二個檔案抬頭與第一個檔案進行比較，並列出抬頭的差異項目與數量
+                                  第二個檔案中抬頭未出現在第一個檔案中的項目編號列出
+        - 工具 2: KeywordFinding - 進行Excel最後一欄的要點分析與整理. 列出":"前的中英文要點。
     """
 )
 
