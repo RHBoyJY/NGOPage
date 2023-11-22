@@ -55,8 +55,8 @@ st.title('NGO/NPO 專案使用首頁')
 
 st.markdown(
         """
-        This is an Web tool for NGO/NPO project \n
-        **👈 Select a function from the sidebar** to process the Excel by Click the mouse!
+        This is a web tool for NGO/NPO project \n
+        **👈 請從左邊的選單中選擇工具** to process the Excel by Click the mouse!
         ### Excel簡易工具簡介
         - 工具 1: **ExcelCompare** -  依序放入第一與第二個檔案，工具會將第二個檔案抬頭與第一個檔案進行比較，並列出抬頭的差異項目與數量
                                      第二個檔案中抬頭未出現在第一個檔案中的項目編號列出
