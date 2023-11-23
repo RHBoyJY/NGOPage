@@ -111,6 +111,7 @@ def process_excel_data(byte_data):
 
     # 對 list 進行排序並去除重複的要點
     # 去除每个字符串两端的空格，但保留字符串中间的空格
+    cleaned_list = []
     for s in all_key_points:
         cleaned_list.append(s.strip())
     cleaned_list
