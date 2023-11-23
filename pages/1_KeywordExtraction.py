@@ -48,6 +48,7 @@ def extract_key_points(data):
             #    print("最後一個字是中文")
             processed_key_point = extract_chinese_from_pattern(key_point)
             # processed_key_point = re.sub(r'^[\u4e00-\u9fa5\s]+', '', processed_key_point, count=1)
+        processed_key_point=processed_key_point.strip()
         processed_key_points.append(processed_key_point)
 
     return processed_key_points
