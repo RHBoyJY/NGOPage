@@ -113,9 +113,8 @@ def process_excel_data(byte_data):
     sorted_unique_key_points = sorted(set(all_key_points))
 
     # 在這裡，你可以進一步處理新的 list 或進行其他操作
-    # 將每個要點加入 DataFrame 的不同列（Columns）中
-    for i, key_point in enumerate(sorted_unique_key_points):
-        df.loc[:, f'Column_{i+1}'] = key_point
+    # 使用 assign 函數將 List 插入到 DataFrame 中，並賦予新的欄位名稱
+    df = df.assign(sorted_unique_key_points)
     # 創建包含要點的新 DataFrame
     result_df = pd.DataFrame({'Sorted_Unique_Key_Points': sorted_unique_key_points})
 
