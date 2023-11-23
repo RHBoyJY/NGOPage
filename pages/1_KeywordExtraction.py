@@ -111,9 +111,9 @@ def process_excel_data(byte_data):
 
     # 對 list 進行排序並去除重複的要點
     # 去除每个字符串两端的空格，但保留字符串中间的空格
-    sorted_unique_key_points = sorted(set(all_key_points))
-    cleaned_list = [s.strip() for s in sorted_unique_key_points]
-    cleaned_list
+    # sorted_unique_key_points = sorted(set(all_key_points))
+    cleaned_list = [s.strip() for s in all_key_points]
+    sorted_unique_key_points = sorted(set(cleaned_list))
     # 在這裡，你可以進一步處理新的 list 或進行其他操作
     # 使用 assign 函數將 List 插入到 DataFrame 中，並賦予新的欄位名稱
     for key_point in sorted_unique_key_points:
