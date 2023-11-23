@@ -111,8 +111,9 @@ def process_excel_data(byte_data):
 
     # 對 list 進行排序並去除重複的要點
     # 去除每个字符串两端的空格，但保留字符串中间的空格
-    for s in all_key_points:        
+    for s in all_key_points:
         cleaned_list.extend(s.strip())
+    cleaned_list
     sorted_unique_key_points = sorted(set(cleaned_list))
 
     # 在這裡，你可以進一步處理新的 list 或進行其他操作
