@@ -90,7 +90,18 @@ def find_column_differences(df1, df2):
     differences = columns2 - columns1
 
     return list(differences)
-
+    
+def extract_information(row):
+    result_list = []
+    for key_point in extracted_key_points:
+        pattern = re.escape(key_point) + r'[\s\S]+?(?=\d+\.\s*|$)'
+        extracted_info = re.search(pattern, row['記錄'])
+        if extracted_info:
+            result_list.append(extracted_info.group(0).strip())
+        else:
+            result_list.append(None)  # 如果没有匹配到，填入 None
+    return pd.Series(result_list, index=extracted_key_points)
+    
 def process_excel_data(byte_data):
     # 讀取 Excel 檔案
     df= pd.read_excel(BytesIO(byte_data), engine='openpyxl')
