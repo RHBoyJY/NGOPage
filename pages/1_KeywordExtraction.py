@@ -91,16 +91,16 @@ def find_column_differences(df1, df2):
 
     return list(differences)
     
-def extract_information(row):
+def extract_information(row,key_points):
     result_list = []
-    for key_point in extracted_key_points:
+    for key_point in key_points:
         pattern = re.escape(key_point) + r'[\s\S]+?(?=\d+\.\s*|$)'
         extracted_info = re.search(pattern, row['記錄'])
         if extracted_info:
             result_list.append(extracted_info.group(0).strip())
         else:
             result_list.append(None)  # 如果没有匹配到，填入 None
-    return pd.Series(result_list, index=extracted_key_points)
+    return pd.Series(result_list, index=key_points)
     
 def process_excel_data(byte_data):
     # 讀取 Excel 檔案
@@ -113,7 +113,7 @@ def process_excel_data(byte_data):
     # 針對每個要點進行擷取，並插入新的欄位
     extracted_key_points = last_column.apply(extract_key_points)
     df['Extracted_Key_Points'] = extracted_key_points
-
+    df[extracted_key_points] = df.apply(extract_information, axis=1, key_points=extracted_key_points)
     # 在這裡，你可以繼續進行其他操作，例如合併兩個檔案，執行相應的分析等
     # 針對每個要點進行擷取，並彙整成一個 list
     last_Keycolumn = df['Extracted_Key_Points']
