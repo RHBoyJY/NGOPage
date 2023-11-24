@@ -115,11 +115,11 @@ def process_excel_data(byte_data):
     # sorted_unique_key_points = sorted(set(all_key_points))
     cleaned_list = [s.strip() for s in all_key_points]
     sorted_unique_key_points = sorted(set(cleaned_list))
-    sorted_unique_key_points
+    # sorted_unique_key_points
     # 在這裡，你可以進一步處理新的 list 或進行其他操作
     # 使用 assign 函數將 List 插入到 DataFrame 中，並賦予新的欄位名稱
-    for key_point in sorted_unique_key_points:
-        df[key_point] = ""
+    # for key_point in sorted_unique_key_points:
+    #    df[key_point] = ""
     # 創建包含要點的新 DataFrame
     result_df = pd.DataFrame({'Sorted_Unique_Key_Points': sorted_unique_key_points})
 
