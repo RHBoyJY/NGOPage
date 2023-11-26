@@ -91,29 +91,55 @@ def find_column_differences(df1, df2):
 
     return list(differences)
     
-def extract_information(row,key_points):
+def extract_information(row, key_points):
     result_list = []
     for key_point in key_points:
-        pattern = re.escape(key_point) + r'[\s\S]+?(?=\d+\.\s*|$)'
-        extracted_info = re.search(pattern, row['記錄'])
-        if extracted_info:
+        #pattern = re.escape(key_point)+r'[:：]' + r'[\s\S]+?(?=\d+\.\s*|$)'
+        pattern = re.escape(key_point)+r'[:：]' + r'[\s\S]+?(?=\d+\.\s*|$)'
+        extracted_info = re.search(pattern, row['紀錄'])
+        extracted_info
+        if extracted_info != None :
             result_list.append(extracted_info.group(0).strip())
         else:
             result_list.append(None)  # 如果没有匹配到，填入 None
     return pd.Series(result_list, index=key_points)
-    
+
+def split_record(row):
+    record = row['紀錄']
+    key_points = row['Extracted_Key_Points']
+    result = []
+
+    for i in range(len(key_points)):
+        current_key_point = key_points[i]
+        next_key_point = key_points[i + 1] if i + 1 < len(key_points) else None
+
+        # 使用正則表達式進行匹配
+        if next_key_point is not None:
+            pattern = re.escape(current_key_point) +r'[:：]' + r'(?:(?!' + re.escape(next_key_point) +r'[:：]' + r').)+'
+        else:
+            pattern = re.escape(current_key_point) + r'[\s\S]+'
+
+        match = re.search(pattern, record)
+
+        if match:
+            result.append(match.group().strip())
+        else:
+            result.append(None)  # 如果没有匹配到，填入 None
+
+    return pd.Series(result)
+
+
 def process_excel_data(byte_data):
     # 讀取 Excel 檔案
     df= pd.read_excel(BytesIO(byte_data), engine='openpyxl')
-
    
     # 提取最後一欄的資料
     last_column = df.iloc[:, -1]
-
     # 針對每個要點進行擷取，並插入新的欄位
     extracted_key_points = last_column.apply(extract_key_points)
     df['Extracted_Key_Points'] = extracted_key_points
-    df[extracted_key_points] = df.apply(extract_information, axis=1, key_points=extracted_key_points)
+    #df[extracted_key_points] = df.apply(extract_information, axis=1, key_points=extracted_key_points)
+
     # 在這裡，你可以繼續進行其他操作，例如合併兩個檔案，執行相應的分析等
     # 針對每個要點進行擷取，並彙整成一個 list
     last_Keycolumn = df['Extracted_Key_Points']
@@ -126,6 +152,36 @@ def process_excel_data(byte_data):
     # sorted_unique_key_points = sorted(set(all_key_points))
     cleaned_list = [s.strip() for s in all_key_points]
     sorted_unique_key_points = sorted(set(cleaned_list))
+    # 新增提取信息的列
+    df['Extracted_Data'] = None
+    for index, row in df.iterrows():
+        # 在這裡處理每一行的數據
+        #row
+        # row['Extracted_Key_Points']
+        extracted_information = split_record(row)
+        # 將 Series 轉換為字典
+        df.at[index,'Extracted_Data'] = extracted_information
+        #extracted_information_dict = extracted_information.to_dict()
+        # 遍歷 extracted_information_dict 中的每一項
+        #extracted_information_dict
+        #for key, value in extracted_information_dict.items():
+            # 檢查 key 是否存在於 row 的索引中
+            #key
+            #if key=='S' :
+            #    row.index
+            #if key in row.index:
+                # 如果存在，將 value 放入對應的索引
+            #    key
+                #value
+            #    row.at[index, key] = value
+            #else:
+                # 如果不存在，新增 key 的列
+                #index
+                #key
+            #    value
+            #    row[key] = None  # 或者使用其他預設值
+            #    row.at[index, key] = value
+    #extracted_information
     # sorted_unique_key_points
     # 在這裡，你可以進一步處理新的 list 或進行其他操作
     # 使用 assign 函數將 List 插入到 DataFrame 中，並賦予新的欄位名稱
@@ -143,7 +199,7 @@ def process_excel_data(byte_data):
     # 在這裡，你可以繼續進行其他操作，例如將兩個檔案的數據合併等
 
     # 去除重複的標題項目
-   # output_df = output_df.loc[:, ~output_df.columns.duplicated()]
+    # output_df = output_df.loc[:, ~output_df.columns.duplicated()]
 
     output_excel = BytesIO()
     df.to_excel(output_excel, index=False, engine='openpyxl')
