@@ -126,7 +126,7 @@ def split_record(row):
         else:
             result.append(None)  # 如果没有匹配到，填入 None
 
-    return pd.Series(result)
+    return pd.Series(result, index=key_points)
 
 
 def process_excel_data(byte_data):
@@ -160,7 +160,7 @@ def process_excel_data(byte_data):
         # row['Extracted_Key_Points']
         extracted_information = split_record(row)
         # 將 Series 轉換為字典
-        df.at[index,'Extracted_Data'] = extracted_information
+        df.at[index,'Extracted_Data'] = extracted_information.to_string()
         #extracted_information_dict = extracted_information.to_dict()
         # 遍歷 extracted_information_dict 中的每一項
         #extracted_information_dict
