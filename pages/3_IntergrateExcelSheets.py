@@ -14,7 +14,7 @@ if uploaded_file is not None:
 
     # 創建一個新的 Excel 文件
     # output_excel = pd.ExcelWriter('combined_output.xlsx', engine='xlsxwriter')
-    output_df = pd.DataFrame(columns=column_differences)
+    #output_df = pd.DataFrame(columns=column_differences)
     output_excel = BytesIO()
    
     # 遍歷每個 SHEET
