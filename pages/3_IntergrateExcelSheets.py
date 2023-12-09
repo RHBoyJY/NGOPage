@@ -13,16 +13,21 @@ if uploaded_file is not None:
     xls = pd.ExcelFile(uploaded_file)
 
     # 創建一個新的 Excel 文件
-    output_excel = pd.ExcelWriter('combined_output.xlsx', engine='xlsxwriter')
-
+    # output_excel = pd.ExcelWriter('combined_output.xlsx', engine='xlsxwriter')
+    output_df = pd.DataFrame(columns=column_differences)
+    output_excel = BytesIO()
+   
     # 遍歷每個 SHEET
+    all_sheets = []
     for sheet_name in xls.sheet_names:
         # 讀取 SHEET 的資料
         df = pd.read_excel(xls, sheet_name)
+        all_sheets.append(df)
 
-        # 將資料寫入新的 SHEET
-        df.to_excel(output_excel, sheet_name=sheet_name, index=False)
-    # 取得最終的二進制數據
+    # 將所有 SHEET 合併到同一個新的 SHEET
+    combined_df = pd.concat(all_sheets, ignore_index=True)
+    # 將合併後的結果寫入新的 Excel 檔案
+    combined_df.to_excel(output_excel, sheet_name='Combined_Sheets', index=False, engine='openpyxl')
     output_excel_data = output_excel.getvalue()
     # 保存新的 Excel 文件
     #output_excel.save()
